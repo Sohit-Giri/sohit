@@ -10,9 +10,10 @@
             font-family: 'Roboto', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f0f0f0;
-            color: #333;
-            overflow-x: hidden; /* Prevent horizontal scrolling */
+            background-color: #f8f9fa;
+            color: #343a40;
+            overflow-x: hidden;
+            line-height: 1.6;
         }
 
         nav {
@@ -20,79 +21,72 @@
             justify-content: center;
             margin: 20px 0;
             background-color: #007BFF;
-            padding: 10px 0;
+            padding: 15px 0;
             border-radius: 5px;
         }
 
         nav a {
             text-decoration: none;
             color: white;
-            padding: 10px 20px;
+            padding: 10px 25px;
+            border-radius: 5px;
             transition: background-color 0.3s, color 0.3s;
-            margin: 0 10px;
+            margin: 0 15px;
+            font-weight: bold;
+            position: relative;
         }
 
         nav a:hover {
             background-color: #0056b3;
-            border-radius: 5px;
         }
 
         h1 {
             text-align: center;
-            margin-top: 50px;
+            margin-top: 60px;
             color: #007BFF;
             animation: fadeIn 1s ease;
         }
 
-        form {
-            max-width: 600px;
-            margin: 20px auto;
+        .content {
+            max-width: 800px;
+            margin: auto;
             padding: 20px;
             background-color: white;
-            border-radius: 5px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            animation: slideIn 0.5s ease forwards;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .section {
+            margin: 30px 0;
             opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s, transform 0.5s;
         }
 
-        form.visible {
+        .section.visible {
             opacity: 1;
-        }
-
-        label {
-            font-weight: bold;
-        }
-
-        input, textarea {
-            width: calc(100% - 20px);
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+            transform: translateY(0);
         }
 
         button {
             padding: 10px 15px;
-            background-color: #007BFF;
+            background: linear-gradient(90deg, #007BFF, #00CFFF);
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: background 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 123, 255, 0.5);
+            font-weight: bold;
         }
 
         button:hover {
-            background-color: #0056b3;
+            background: linear-gradient(90deg, #0056b3, #00A4B3);
+            box-shadow: 0 8px 16px rgba(0, 123, 255, 0.8);
         }
-
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
-        }
-
-        @keyframes slideIn {
-            from { transform: translateY(20px); }
-            to { transform: translateY(0); }
         }
 
         @media (max-width: 600px) {
@@ -103,14 +97,16 @@
             nav a {
                 margin: 5px 0;
             }
+
+            button {
+                width: 100%;
+                margin-top: 15px;
+            }
         }
     </style>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            const content = document.querySelector('.content');
-            content.classList.add('visible'); // Trigger visibility animation
-
-            const scrollElements = document.querySelectorAll('.scroll-effect');
+            const scrollElements = document.querySelectorAll('.section');
 
             const elementInView = (el, dividend = 1) => {
                 const elementTop = el.getBoundingClientRect().top;
@@ -144,22 +140,15 @@
         <a href="{% url 'blog' %}">Blog</a>
         <a href="{% url 'contact' %}">Contact</a>
     </nav>
-    <h1 class="scroll-effect">Welcome to Sohit's Portfolio</h1>
+    <h1>Welcome to Sohit's Portfolio</h1>
     <div class="content">
-        <div class="section scroll-effect">
+        <div class="section">
             <h2>About Me</h2>
             <p>Hello! I'm Sohit, a passionate developer with experience in creating dynamic web applications. I love coding and solving complex problems.</p>
+            <button onclick="window.location.href='{% url 'about' %}'">Learn More</button>
         </div>
-        <div class="section scroll-effect">
-            <h2>My Skills</h2>
-            <ul>
-                <li>HTML, CSS, JavaScript</li>
-                <li>Python, Django, Flask</li>
-                <li>SQL, PostgreSQL, SQLite</li>
-                <li>ETL Development and Data Engineering</li>
-            </ul>
-        </div>
-        <div class="section scroll-effect">
+
+        <div class="section">
             <h2>Projects</h2>
             <p>Check out some of my recent projects:</p>
             <ul>
@@ -167,10 +156,12 @@
                 <li><strong>Calculator App:</strong> A web-based calculator with advanced features.</li>
                 <li><strong>Data Visualization Tool:</strong> An interactive tool for analyzing data trends.</li>
             </ul>
+            <button onclick="window.location.href='{% url 'projects' %}'">View Projects</button>
         </div>
-        <div class="section scroll-effect">
+        <div class="section">
             <h2>Get in Touch</h2>
             <p>If you'd like to connect or have any questions, feel free to reach out through the contact page!</p>
+            <button onclick="window.location.href='{% url 'contact' %}'">Connect with Me</button>
         </div>
     </div>
 </body>
