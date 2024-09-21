@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure-!@=gtmztv-jkbl$8yi@mrd^!q2pbgs=h-1__uwr@rhsngg$lr$
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['.vercel.app']
+ALLOWED_HOSTS = ['.vercel.app', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -123,3 +123,11 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 STATIC_URL = '/static/'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'negativezero48@gmail.com'
+EMAIL_HOST_PASSWORD = 'ytsb nbhs znjs uiby'
+DEFAULT_FROM_EMAIL = 'Negative Zero <negativezero48@gmail.com>'
