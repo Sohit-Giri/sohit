@@ -74,10 +74,21 @@ WSGI_APPLICATION = "sohit.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'django_render_6l0t',
+        'USER': 'django_render_6l0t_user',
+        'PASSWORD': '5IFCPIuJPPgF9iFuFMggJr25m6fhyH6J',  # Replace with your actual password
+        'HOST': 'dpg-crng7lt6l47c73afom00-a.oregon-postgres.render.com',
+        'PORT': '5432',
     }
 }
 
