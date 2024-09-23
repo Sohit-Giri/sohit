@@ -3,64 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" sizes="32x32" href="https://scontent.fktm8-1.fna.fbcdn.net/v/t39.30808-6/335331112_1203722863584585_3236114556252916986_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=2285d6&_nc_ohc=RXNoOsbDaYIQ7kNvgFYNBGK&_nc_ht=scontent.fktm8-1.fna&_nc_gid=AqQNkM34DqlNqxNXiRS0Jce&oh=00_AYAIRvcCWhn9P8QmGhMDZLXeNImeyVxoIHzcWUXtl9rjjQ&oe=66F77004"/>    
+    <title>Sohit's Portfolio</title>
     <style>
+        /* Chocolatey theme styling */
         body {
             font-family: 'Roboto', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f8f9fa;
-            color: #343a40;
+            background-color: #3e2723; /* Dark chocolate */
+            color: #ffffff;
             overflow-x: hidden;
             line-height: 1.6;
+            scroll-behavior: smooth;
         }
-
+        /* Navigation Bar */
         nav {
             display: flex;
             justify-content: center;
             margin: 20px 0;
-            background-color: #007BFF;
+            background-color: #8B4513; /* Milk chocolate */
             padding: 15px 0;
             border-radius: 5px;
         }
 
         nav a {
             text-decoration: none;
-            color: white;
-            padding: 10px 25px;
+            color: #ffffff;
+            padding: 10px 20px;
             border-radius: 5px;
-            transition: background-color 0.3s, color 0.3s;
             margin: 0 15px;
-            font-weight: bold;
-            position: relative;
+            transition: background-color 0.3s, transform 0.3s;
         }
 
         nav a:hover {
-            background-color: #0056b3;
+            background-color: #4e342e;
+            transform: scale(1.05);
         }
-
-        h1 {
-            text-align: center;
-            margin-top: 60px;
-            color: #007BFF;
-            animation: fadeIn 1s ease;
+        
+        .section#welcomeSection video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1; /* Place the video behind the other content */
         }
-
-        .content {
-            max-width: 800px;
-            margin: auto;
-            padding: 20px;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        .section#gameSection {
+            background-image: url("https://images.pexels.com/photos/3165335/pexels-photo-3165335.jpeg");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
         }
-
+        /* Full-Screen Block Styling */
         .section {
-            margin: 30px 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.5s, transform 0.5s;
+            transform: translateY(50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+            padding: 20px;
+            background-color: #6d4c41; /* Medium chocolate */
+            text-align: center;
         }
 
         .section.visible {
@@ -68,101 +75,279 @@
             transform: translateY(0);
         }
 
+        /* Section Headers */
+        h1, h2 {
+            color: #FFD700; /* Gold */
+            animation: fadeIn 1s ease;
+        }
+
+        /* Content Blocks */
+        .content-block {
+            background-color: #3e2723;
+            padding: 50px;
+            border-radius: 12px;
+            max-width: 600px;
+            text-align: left;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Game Section */
+        #gameContainer {
+            width: 100%;
+            text-align: center;
+            max-width: 800px;
+        }
+
+        canvas {
+            background-color: #fff;
+            display: block;
+            margin: 0 auto;
+            border: 5px solid #D2691E;
+            width: 100%;
+        }
+
         button {
-            padding: 10px 15px;
-            background: linear-gradient(90deg, #007BFF, #00CFFF);
-            color: white;
+            padding: 10px 20px;
+            background: linear-gradient(90deg, #8B4513, #D2691E);
+            color: #ffffff;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            transition: background 0.3s, box-shadow 0.3s;
-            box-shadow: 0 4px 8px rgba(0, 123, 255, 0.5);
-            font-weight: bold;
+            margin-top: 20px;
+            transition: background 0.3s, transform 0.3s;
         }
 
         button:hover {
-            background: linear-gradient(90deg, #0056b3, #00A4B3);
-            box-shadow: 0 8px 16px rgba(0, 123, 255, 0.8);
+            background: linear-gradient(90deg, #5e3014, #A0522D);
+            transform: scale(1.05);
         }
+
+        .score {
+            color: #FFD700;
+            font-size: 1.5rem;
+        }
+
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
         }
 
         @media (max-width: 600px) {
-            nav {
-                flex-direction: column;
+            .content-block {
+                padding: 20px;
             }
 
-            nav a {
-                margin: 5px 0;
-            }
-
-            button {
+            canvas {
                 width: 100%;
-                margin-top: 15px;
             }
         }
     </style>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const scrollElements = document.querySelectorAll('.section');
-
-            const elementInView = (el, dividend = 1) => {
-                const elementTop = el.getBoundingClientRect().top;
-                return (
-                    elementTop <= (window.innerHeight || document.documentElement.clientHeight) / dividend
-                );
-            };
-
-            const displayScrollElement = (element) => {
-                element.classList.add('visible');
-            };
-
-            const handleScrollAnimation = () => {
-                scrollElements.forEach((el) => {
-                    if (elementInView(el, 1.5)) {
-                        displayScrollElement(el);
-                    }
-                });
-            };
-
-            window.addEventListener('scroll', handleScrollAnimation);
-            handleScrollAnimation(); // Initial check
-        });
-    </script>
+    {% load static %}
 </head>
 <body>
-    <nav>
-        <a href="{% url 'home' %}">Home</a>
-        <a href="{% url 'about' %}">About</a>
-        <a href="{% url 'projects' %}">Projects</a>
-        <a href="{% url 'blog' %}">Blog</a>
-        <a href="{% url 'contact' %}">Contact</a>
-    </nav>
+
+    <!-- Header -->
     <h1>Welcome to Sohit's Portfolio</h1>
-    <div class="content">
-        <div class="section">
+
+    <!-- Navigation bar -->
+    <nav>
+        <a href="#aboutSection">About</a>
+        <a href="#projectsSection">Projects</a>
+        <a href="#contactSection">Contact</a>
+    </nav>
+
+    <!-- Welcoming Screen (Initial Section) -->
+    <div class="section" id="welcomeSection">
+        <video autoplay muted loop>
+            <source src="{% static 'ol.mp4' %}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div>
+            <h2>Welcome!</h2>
+            <p>Discover my work and projects. Click the button below to start the game!</p>
+            <button onclick="scrollToSection('gameSection')" id="startGameBtn">Start Game</button>
+        </div>
+    </div>
+
+    <!-- Game Section (Full Screen) -->
+    <div class="section" id="gameSection">
+        <div id="gameContainer">
+            <h2>Mini Car Game</h2>
+            <button id="playBtn">Play Now</button>
+            <canvas id="gameCanvas" width="600" height="400"></canvas>
+            <p class="score" id="score">Score: 0</p>
+            <button onclick="scrollToSection('aboutSection')">Next</button>
+        </div>
+    </div>
+
+    <!-- About Me Section -->
+    <div class="section" id="aboutSection">
+        <div class="content-block">
             <h2>About Me</h2>
             <p>Hello! I'm Sohit, a passionate developer with experience in creating dynamic web applications. I love coding and solving complex problems.</p>
-            <button onclick="window.location.href='{% url 'about' %}'">Learn More</button>
+            <button onclick="window.location.href='/about/'">Learn More</button>
         </div>
+    </div>
 
-        <div class="section">
+    <!-- Projects Section -->
+    <div class="section" id="projectsSection">
+        <div class="content-block">
             <h2>Projects</h2>
-            <p>Check out some of my recent projects:</p>
             <ul>
                 <li><strong>Portfolio Website:</strong> A personal website showcasing my work.</li>
                 <li><strong>Calculator App:</strong> A web-based calculator with advanced features.</li>
                 <li><strong>Data Visualization Tool:</strong> An interactive tool for analyzing data trends.</li>
             </ul>
-            <button onclick="window.location.href='{% url 'projects' %}'">View Projects</button>
-        </div>
-        <div class="section">
-            <h2>Get in Touch</h2>
-            <p>If you'd like to connect or have any questions, feel free to reach out through the contact page!</p>
-            <button onclick="window.location.href='{% url 'contact' %}'">Connect with Me</button>
+            <button onclick="window.location.href='/projects/'">View Projects</button>
         </div>
     </div>
+
+    <!-- Contact Section -->
+    <div class="section" id="contactSection">
+        <div class="content-block">
+            <h2>Get in Touch</h2>
+            <p>If you'd like to connect or have any questions, feel free to reach out through the contact page!</p>
+            <button onclick="window.location.href='/contact/'">Connect with Me</button>
+        </div>
+    </div>
+
+    <!-- JavaScript for the animations and car game -->
+    <script>
+        // Intersection Observer for scrolling animations
+        const sections = document.querySelectorAll('.section');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                } else {
+                    entry.target.classList.remove('visible');
+                }
+            });
+        }, { threshold: 0.5 });
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+
+        // Scroll to the specified section
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Game variables
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const playBtn = document.getElementById('playBtn');
+        const scoreDisplay = document.getElementById('score');
+        let carX = canvas.width / 2 - 25;
+        let carY = canvas.height - 60;
+        let isPlaying = false;
+        let score = 0;
+        let obstacles = [];
+
+        // Car and obstacle dimensions
+        const carWidth = 50;
+        const carHeight = 100;
+        const obstacleWidth = 50;
+        const obstacleHeight = 100;
+
+        // Draw car
+        function drawCar() {
+            ctx.fillStyle = 'red';
+            ctx.fillRect(carX, carY, carWidth, carHeight); // Car body
+            ctx.fillStyle = 'black';
+            ctx.fillRect(carX + 10, carY + 90, 10, 10); // Left wheel
+            ctx.fillRect(carX + 30, carY + 90, 10, 10); // Right wheel
+        }
+
+        // Create and draw obstacles
+        function drawObstacles() {
+            ctx.fillStyle = 'blue';
+            obstacles.forEach(obstacle => {
+                ctx.fillRect(obstacle.x, obstacle.y, obstacleWidth, obstacleHeight);
+            });
+        }
+
+        // Move obstacles
+        function moveObstacles() {
+            obstacles.forEach(obstacle => {
+                obstacle.y += 5;
+            });
+
+            // Remove off-screen obstacles and increase score
+            obstacles = obstacles.filter(obstacle => obstacle.y <= canvas.height);
+            score++;
+            scoreDisplay.textContent = `Score: ${score}`;
+        }
+
+        // Collision detection
+        function detectCollision() {
+            for (let obstacle of obstacles) {
+                if (carX < obstacle.x + obstacleWidth &&
+                    carX + carWidth > obstacle.x &&
+                    carY < obstacle.y + obstacleHeight &&
+                    carY + carHeight > obstacle.y) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        // Update game state
+        function updateGame() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawCar();
+            drawObstacles();
+            moveObstacles();
+
+            // End game if collision detected
+            if (detectCollision()) {
+                alert('Game Over!');
+                resetGame();
+            } else {
+                requestAnimationFrame(updateGame);
+            }
+        }
+
+        // Move car with arrow keys
+        function moveCar(e) {
+            if (e.key === 'ArrowLeft' && carX > 0) {
+                carX -= 10;
+            } else if (e.key === 'ArrowRight' && carX < canvas.width - carWidth) {
+                carX += 10;
+            }
+        }
+
+        // Add new obstacles
+        function addObstacle() {
+            const obstacleX = Math.random() * (canvas.width - obstacleWidth);
+            obstacles.push({ x: obstacleX, y: -obstacleHeight });
+        }
+        
+        // Reset game
+        function resetGame() {
+            isPlaying = false;
+            score = 0;
+            carX = canvas.width / 2 - 25;
+            obstacles = [];
+            scoreDisplay.textContent = 'Score: 0';
+        }
+        // Start game
+        playBtn.addEventListener('click', () => {
+            if (!isPlaying) {
+                isPlaying = true;
+                resetGame();
+                addObstacle();
+                updateGame();
+                setInterval(addObstacle, 1500); // New obstacle every 1.5 seconds
+            }
+        });
+
+        // Listen for arrow keys
+        document.addEventListener('keydown', moveCar);
+    
+    
+    </script>
+
 </body>
 </html>

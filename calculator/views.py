@@ -11,8 +11,8 @@ def about(request):
 def projects(request):
     return render(request, 'calculator/projects.html')
 
-def blog(request):
-    return render(request, 'calculator/blog.html')
+# def blog(request):
+#     return render(request, 'calculator/blog.html')
 
 def contact(request):
     if request.method == 'POST':
